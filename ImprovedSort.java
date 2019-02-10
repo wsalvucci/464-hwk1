@@ -56,9 +56,15 @@ public class ImprovedSort {
     	} else {
     		System.out.println("Reducing to power of 2");
     		int endPoint = copyArr.length;
-    		while ((endPoint != 0) && ((endPoint & (endPoint - 1)) == 0))
+    		while (!((endPoint != 0) && ((endPoint & (endPoint - 1)) == 0)))
     			endPoint--;
+    		
+        	System.out.println("Running merge sort on array: ");
+        	printArr(arr);
     		merge(copyArr, 0, endPoint-1);
+    		
+        	System.out.println("Running insertion sort on array: ");
+        	printArr(arr);
     		insertionSort(copyArr, copyArr.length);
     	}
     	arr = copyArr;
