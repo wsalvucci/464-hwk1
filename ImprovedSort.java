@@ -36,12 +36,33 @@ public class ImprovedSort {
     }
 
     private static void impSort(int[] arr) {
+    	int i;
+    	int[] newArray = new int[arr.length];
+    	for (i = 0; i < arr.length-32; i = i + 32) {
+    		int[] copyArray = Arrays.copyOfRange(arr, i, i+32);
+    		insertionSort(copyArray, copyArray.length);
+    		System.arraycopy(copyArray, 0, newArray, i, copyArray.length);
+    	}
+    	int[] copyArray = Arrays.copyOfRange(arr, i, arr.length-1);
+    	insertionSort(copyArray, copyArray.length);
+    	System.arraycopy(copyArray, 0, newArray, i, copyArray.length);
+    	merge(newArray, 0, newArray.length-1);
+    	System.out.println("New Array:");
+    	printArr(newArray);
+		arr = newArray;
+    	
+    	
+    	
+    	
+    	
+    	
         /*
          * If the array isn't a power of 2, split the array to have one array the power of two
          * and run merge sort on the power of two array and insertion sort on the  smaller array.
          * 
          * If the power of two array is <=32, still run insertion sort
     	*/
+    	/*
     	int[] copyArr = arr;
     	boolean power2;
     	if ((copyArr.length != 0) && ((copyArr.length & (copyArr.length - 1)) == 0))
@@ -68,6 +89,7 @@ public class ImprovedSort {
     		insertionSort(copyArr, copyArr.length);
     	}
     	arr = copyArr;
+    	*/
     }
 
     private static void printArr(int[] arr) {
@@ -85,8 +107,6 @@ public class ImprovedSort {
         printArr(testArr);
 
         impSort(testArr);
-        //insertionSort(testArr, testArr.length);
-        //merge(testArr, 0, testArr.length-1);
 
         System.out.println("After sorting:");
         printArr(testArr);
